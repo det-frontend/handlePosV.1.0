@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "v1",
-    "slug": "v1",
+    "slug": "handlepos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,15 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "98ab00a5-6685-452a-bd77-2255a48825b4"
+      }
+    },
+    "owner": "htoo_khant002"
   }
 }

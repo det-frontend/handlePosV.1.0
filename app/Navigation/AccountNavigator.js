@@ -3,14 +3,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import color from "../config/color";
 import { Main } from "../screens/Main";
 import { Reports } from "../screens/Reports";
-import { Account } from "../screens/Account";
 import { AppNavigator } from "./AppNavigator";
 import { Vouchers } from "../screens/Vouchers";
-import { Login } from "../screens/Login";
-
+import { Account } from "../screens/Account";
+import Info from "../screens/Account/Info";
 const Stack = createNativeStackNavigator();
 
-export const Authnavigator = () => {
+export const AccountNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -21,19 +20,9 @@ export const Authnavigator = () => {
         headerTintColor: color.light,
       }}
     >
-      {/* <Stack.Screen
-            name="Main"
-            component={Login}
-            options={{
-                headerStyle: {
-                    backgroundColor: color.bottomActiveNavigation,
-                },
-                headerShown:false
-            }}
-        /> */}
       <Stack.Screen
-        name="Main"
-        component={AppNavigator}
+        name="index"
+        component={Account}
         options={{
           headerStyle: {
             backgroundColor: color.bottomActiveNavigation,
@@ -42,27 +31,10 @@ export const Authnavigator = () => {
         }}
       />
       <Stack.Screen
-        name="Reports"
-        component={Reports}
+        name="info"
+        component={Info}
         options={{
-          headerStyle: {
-            backgroundColor: color.bottomActiveNavigation,
-          },
-        }}
-      />
-      <Stack.Screen
-        name="Vouchers"
-        component={Vouchers}
-        options={{
-          headerStyle: {
-            backgroundColor: color.bottomActiveNavigation,
-          },
-        }}
-      />
-      <Stack.Screen
-        name="Account"
-        component={Account}
-        options={{
+          headerShown: false,
           headerStyle: {
             backgroundColor: color.bottomActiveNavigation,
           },
