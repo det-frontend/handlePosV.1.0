@@ -11,6 +11,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CustomAlert from "../../components/CustomAlert";
 import AuthContext from "../../auth/context";
 import authStorage from "../../auth/storage";
+import { Ionicons } from "@expo/vector-icons";
 
 export const Account = ({ navigation }) => {
   const { user, setUser } = useContext(AuthContext);
@@ -90,6 +91,23 @@ export const Account = ({ navigation }) => {
               <Text style={tw`text-lg  font-semibold text-gray-500/50`}>
                 Coming Soon ...
               </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={tw`w-[100%] mt-4 bg-[#353b48] p-5 flex flex-col justify-around flex-wrap`}
+        >
+          <View style={tw`flex flex-row items-center gap-2`}>
+            <Ionicons
+              name="settings-sharp"
+              size={24}
+              style={tw`text-gray-400`}
+            />
+            <Text style={tw`text-2xl font-semibold text-gray-400`}>
+              Setting
+            </Text>
+            <View>
+              
             </View>
           </View>
         </View>

@@ -59,11 +59,10 @@ const Info = ({ navigation }) => {
     try {
       // await AsyncStorage.clear();
       await AsyncStorage.removeItem("info");
+      console.log("Done.");
     } catch (e) {
-      // remove error
+      console.log("err");
     }
-
-    console.log("Done.");
   };
 
   // const show =
@@ -229,6 +228,9 @@ const Info = ({ navigation }) => {
             alert
           </Text>
         </TouchableOpacity> */}
+        <View>
+          
+        </View>
       </ScrollView>
     </Screen>
   );

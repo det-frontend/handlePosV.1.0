@@ -1278,7 +1278,7 @@
     node-forge "^1.2.1"
     nullthrows "^1.1.1"
 
-"@expo/config-plugins@~7.2.0", "@expo/config-plugins@7.2.5":
+"@expo/config-plugins@~7.2.0", "@expo/config-plugins@~7.2.5", "@expo/config-plugins@7.2.5":
   version "7.2.5"
   resolved "https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-7.2.5.tgz"
   integrity sha512-w+5ccu1IxBHgyQk9CPFKLZOk8yZQEyTjbJwOzESK1eR7QwosbcsLkN1c1WWUZYiCXwORu3UTwJYll4+X2xxJhQ==
@@ -7447,6 +7447,13 @@ react-native-maps@1.7.1:
   integrity sha512-CHVLzL+Q2jiUGgbt4/vosxVI1SukWyaLGjD62VLgR/wZpnH4Umi9ql1bmKDPWcfj2C1QZwMU0Yc7rXTbvZUIiw==
   dependencies:
     "@types/geojson" "^7946.0.10"
+
+react-native-nfc-manager@^3.14.11:
+  version "3.14.11"
+  resolved "https://registry.npmjs.org/react-native-nfc-manager/-/react-native-nfc-manager-3.14.11.tgz"
+  integrity sha512-h0qJOQ1P+xXK7dRbK4xnK80kQxgNfniwlsP0oj33cb8ML9XVntBlVjbcHUsf6iERDYT8xPpQdfviSYB/zJ+K1g==
+  dependencies:
+    "@expo/config-plugins" "~7.2.5"
 
 react-native-safe-area-context@*, "react-native-safe-area-context@>= 3.0.0", react-native-safe-area-context@4.6.3:
   version "4.6.3"

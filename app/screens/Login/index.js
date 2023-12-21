@@ -175,11 +175,6 @@ export const Login = () => {
         </View>
       </ScrollView>
       <Text
-        // style={{
-        //   color: color.white,
-        //   fontFamily: "Poppins_400Regular",
-        //   fontSize: 12,
-        // }}
         style={tw`text-white mx-auto mb-3 pt-2`}
       >
         © 2023 Digital Engineering Tech Ltd. All rights reserved.
