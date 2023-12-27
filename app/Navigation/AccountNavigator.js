@@ -7,6 +7,7 @@ import { AppNavigator } from "./AppNavigator";
 import { Vouchers } from "../screens/Vouchers";
 import { Account } from "../screens/Account";
 import Info from "../screens/Account/Info";
+import PriceChange from "../screens/Account/PriceChange";
 const Stack = createNativeStackNavigator();
 
 export const AccountNavigator = () => {
@@ -33,6 +34,16 @@ export const AccountNavigator = () => {
       <Stack.Screen
         name="info"
         component={Info}
+        options={{
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: color.bottomActiveNavigation,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="price"
+        component={PriceChange}
         options={{
           headerShown: false,
           headerStyle: {

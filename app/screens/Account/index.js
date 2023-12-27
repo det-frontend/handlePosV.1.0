@@ -1,4 +1,11 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Screen } from "../../components/Screen";
 import color from "../../config/color";
 import LottieView from "lottie-react-native";
@@ -12,8 +19,33 @@ import CustomAlert from "../../components/CustomAlert";
 import AuthContext from "../../auth/context";
 import authStorage from "../../auth/storage";
 import { Ionicons } from "@expo/vector-icons";
+import SettingCard from "./SettingCard";
+// import priceChgImg from '../../../assets/price-tag.png'
 
 export const Account = ({ navigation }) => {
+  const settingData = [
+    {
+      name: "Price change",
+      link: "price",
+      img: require("../../../assets/tag.png"),
+    },
+    {
+      name: "Customer info",
+      link: "",
+      img: require("../../../assets/ancestors.png"),
+    },
+    {
+      name: "Upload to Cloud",
+      link: "",
+      img: require("../../../assets/server.png"),
+    },
+    {
+      name: "Update",
+      link: "",
+      img: require("../../../assets/update.png"),
+    },
+  ];
+
   const { user, setUser } = useContext(AuthContext);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -28,6 +60,9 @@ export const Account = ({ navigation }) => {
     // Handle 'Cancel' button press logic here
     setShowAlert(false);
   };
+
+
+
   return (
     <Screen style={tw`flex items-center justify-center`}>
       <CustomAlert
@@ -106,9 +141,15 @@ export const Account = ({ navigation }) => {
             <Text style={tw`text-2xl font-semibold text-gray-400`}>
               Setting
             </Text>
-            <View>
-              
-            </View>
+          </View>
+          <View style={tw`mt-5 flex flex-wrap justify-center gap-5 flex-row`}>
+            {settingData.map((item) => (
+              <SettingCard
+                {...item}
+                onPress={() => navigation.navigate(item.link)}
+              />
+            ))}
+            {/* <SettingCard /> */}
           </View>
         </View>
       </ScrollView>

@@ -3626,17 +3626,6 @@ css-select@^4.1.3, css-select@^4.2.1:
     domutils "^2.8.0"
     nth-check "^2.0.1"
 
-css-select@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.npmjs.org/css-select/-/css-select-5.1.0.tgz"
-  integrity sha512-nwoRF1rvRRnnCqqY7updORDsuqKzqYJ28+oSMaJMMgOauh3fvwHqMS7EZpIPqK8GL+g9mKxF1vP/ZjSeNjEVHg==
-  dependencies:
-    boolbase "^1.0.0"
-    css-what "^6.1.0"
-    domhandler "^5.0.2"
-    domutils "^3.0.1"
-    nth-check "^2.0.1"
-
 css-tree@^1.1.2, css-tree@^1.1.3:
   version "1.1.3"
   resolved "https://registry.npmjs.org/css-tree/-/css-tree-1.1.3.tgz"
@@ -3645,7 +3634,7 @@ css-tree@^1.1.2, css-tree@^1.1.3:
     mdn-data "2.0.14"
     source-map "^0.6.1"
 
-css-what@^6.0.1, css-what@^6.1.0:
+css-what@^6.0.1:
   version "6.1.0"
   resolved "https://registry.npmjs.org/css-what/-/css-what-6.1.0.tgz"
   integrity sha512-HTUrgRJ7r4dsZKU6GjmpfRK1O76h97Z8MfS1G0FozR+oF2kG6Vfe8JE6zwrkbxigziPHinCJ+gCPjA9EaBDtRw==
@@ -3927,16 +3916,7 @@ dom-serializer@^1.0.1:
     domhandler "^4.2.0"
     entities "^2.0.0"
 
-dom-serializer@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/dom-serializer/-/dom-serializer-2.0.0.tgz"
-  integrity sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==
-  dependencies:
-    domelementtype "^2.3.0"
-    domhandler "^5.0.2"
-    entities "^4.2.0"
-
-domelementtype@^2.0.1, domelementtype@^2.2.0, domelementtype@^2.3.0:
+domelementtype@^2.0.1, domelementtype@^2.2.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/domelementtype/-/domelementtype-2.3.0.tgz"
   integrity sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw==
@@ -3948,13 +3928,6 @@ domhandler@^4.0.0, domhandler@^4.2.0, domhandler@^4.3.1:
   dependencies:
     domelementtype "^2.2.0"
 
-domhandler@^5.0.2, domhandler@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.npmjs.org/domhandler/-/domhandler-5.0.3.tgz"
-  integrity sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==
-  dependencies:
-    domelementtype "^2.3.0"
-
 domutils@^2.5.2, domutils@^2.8.0:
   version "2.8.0"
   resolved "https://registry.npmjs.org/domutils/-/domutils-2.8.0.tgz"
@@ -3963,15 +3936,6 @@ domutils@^2.5.2, domutils@^2.8.0:
     dom-serializer "^1.0.1"
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
-
-domutils@^3.0.1:
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/domutils/-/domutils-3.1.0.tgz"
-  integrity sha512-H78uMmQtI2AhgDJjWeQmHwJJ2bLPD3GMmO7Zja/ZZh84wkm+4ut+IUnUdRa8uCGX88DiVx1j6FRe1XfxEgjEZA==
-  dependencies:
-    dom-serializer "^2.0.0"
-    domelementtype "^2.3.0"
-    domhandler "^5.0.3"
 
 dot-case@^3.0.4:
   version "3.0.4"
@@ -4035,11 +3999,6 @@ entities@^2.0.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/entities/-/entities-2.2.0.tgz"
   integrity sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==
-
-entities@^4.2.0:
-  version "4.5.0"
-  resolved "https://registry.npmjs.org/entities/-/entities-4.5.0.tgz"
-  integrity sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==
 
 env-editor@^0.4.1:
   version "0.4.2"
@@ -4247,6 +4206,25 @@ expo-head@0.0.20:
   integrity sha512-K0ETFOp/I+Td1T40D8k+Nlk8zCtvUFKTVYiwUhLoCCPf4dGC0zXv/noJLgyZ8jZ+5FJLlrSTpk2Gm9bxJfqkLw==
   dependencies:
     react-helmet-async "^1.3.0"
+
+expo-image-loader@~4.4.0:
+  version "4.4.0"
+  resolved "https://registry.npmjs.org/expo-image-loader/-/expo-image-loader-4.4.0.tgz"
+  integrity sha512-dq88tiRB8aB1U+O/oJI7IY4VU9Nu2iDjEwR8QDfLtD4xWd5lNGoyic5Vh7911E1qNJFqNMSVIVzOD5l1SQ3A6g==
+
+expo-image-manipulator@^11.5.0:
+  version "11.5.0"
+  resolved "https://registry.npmjs.org/expo-image-manipulator/-/expo-image-manipulator-11.5.0.tgz"
+  integrity sha512-W/mwSIuLyolDDSzIkENvwVoQpe6HJfpcAQbeu3VX3ZcTJrgvORM/tfuCJacCTHQ0iVIB49Txv65CgbtO+3Pd6w==
+  dependencies:
+    expo-image-loader "~4.4.0"
+
+expo-image-picker@^14.5.0:
+  version "14.5.0"
+  resolved "https://registry.npmjs.org/expo-image-picker/-/expo-image-picker-14.5.0.tgz"
+  integrity sha512-9icvfQuWMdNKufFqu+FxenKcfybz9ior+XYQCIl/q5+mpHPo2tKq8I30vu2BjsOJ0Cfo7V4vMeN7a9F/3ooUfQ==
+  dependencies:
+    expo-image-loader "~4.4.0"
 
 expo-keep-awake@~12.3.0:
   version "12.3.0"
@@ -6686,6 +6664,11 @@ p-try@^2.0.0:
   resolved "https://registry.npmjs.org/p-try/-/p-try-2.2.0.tgz"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
+paho-mqtt@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/paho-mqtt/-/paho-mqtt-1.1.0.tgz"
+  integrity sha512-KPbL9KAB0ASvhSDbOrZBaccXS+/s7/LIofbPyERww8hM5Ko71GUJQ6Nmg0BWqj8phAIT8zdf/Sd/RftHU9i2HA==
+
 param-case@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/param-case/-/param-case-3.0.4.tgz"
@@ -6780,11 +6763,6 @@ path-type@^4.0.0:
   resolved "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-paths-js@^0.4.10:
-  version "0.4.11"
-  resolved "https://registry.npmjs.org/paths-js/-/paths-js-0.4.11.tgz"
-  integrity sha512-3mqcLomDBXOo7Fo+UlaenG6f71bk1ZezPQy2JCmYHy2W2k5VKpP+Jbin9H0bjXynelTbglCqdFhSEkeIkKTYUA==
-
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.0.0.tgz"
@@ -6861,11 +6839,6 @@ pngjs@^3.3.0:
   version "3.4.0"
   resolved "https://registry.npmjs.org/pngjs/-/pngjs-3.4.0.tgz"
   integrity sha512-NCrCHhWmnQklfH4MtJMRjZ2a8c80qXeMlQMv2uVp9ISJMTt562SbGd6n2oq0PaPgKm7Z6pL9E2UlLIhC+SHL3w==
-
-point-in-polygon@^1.0.1:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/point-in-polygon/-/point-in-polygon-1.1.0.tgz"
-  integrity sha512-3ojrFwjnnw8Q9242TzgXuTD+eKiutbzyslcq1ydfu82Db2y+Ogbmyrkpv0Hgj31qwT3lbS9+QAAO/pIQM35XRw==
 
 postcss-calc@^8.2.3:
   version "8.2.4"
@@ -7414,15 +7387,6 @@ react-is@^18.0.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
-react-native-chart-kit@^6.12.0:
-  version "6.12.0"
-  resolved "https://registry.npmjs.org/react-native-chart-kit/-/react-native-chart-kit-6.12.0.tgz"
-  integrity sha512-nZLGyCFzZ7zmX0KjYeeSV1HKuPhl1wOMlTAqa0JhlyW62qV/1ZPXHgT8o9s8mkFaGxdqbspOeuaa6I9jUQDgnA==
-  dependencies:
-    lodash "^4.17.13"
-    paths-js "^0.4.10"
-    point-in-polygon "^1.0.1"
-
 react-native-gesture-handler@*, react-native-gesture-handler@~2.12.0:
   version "2.12.1"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.12.1.tgz"
@@ -7475,14 +7439,6 @@ react-native-screens@*, "react-native-screens@>= 3.0.0", react-native-screens@~3
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-"react-native-svg@> 6.4.1":
-  version "14.1.0"
-  resolved "https://registry.npmjs.org/react-native-svg/-/react-native-svg-14.1.0.tgz"
-  integrity sha512-HeseElmEk+AXGwFZl3h56s0LtYD9HyGdrpg8yd9QM26X+d7kjETrRQ9vCjtxuT5dCZEIQ5uggU1dQhzasnsCWA==
-  dependencies:
-    css-select "^5.1.0"
-    css-tree "^1.1.3"
-
 "react-native-web@>= 0.11", react-native-web@~0.19.6:
   version "0.19.9"
   resolved "https://registry.npmjs.org/react-native-web/-/react-native-web-0.19.9.tgz"
@@ -7497,7 +7453,7 @@ react-native-screens@*, "react-native-screens@>= 3.0.0", react-native-screens@~3
     postcss-value-parser "^4.2.0"
     styleq "^0.1.3"
 
-react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@>= 0.50.0", "react-native@>= 0.64.3", react-native@>=0.46, react-native@>=0.63.0, react-native@0.72.6:
+react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@>= 0.64.3", react-native@>=0.46, react-native@>=0.63.0, react-native@0.72.6:
   version "0.72.6"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.72.6.tgz"
   integrity sha512-RafPY2gM7mcrFySS8TL8x+TIO3q7oAlHpzEmC7Im6pmXni6n1AuufGaVh0Narbr1daxstw7yW7T9BKW5dpVc2A==
@@ -7552,7 +7508,7 @@ react-shallow-renderer@^16.15.0:
     object-assign "^4.1.1"
     react-is "^16.12.0 || ^17.0.0 || ^18.0.0"
 
-react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.6.0 || ^17.0.0 || ^18.0.0", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.0.0, react@^18.2.0, "react@> 16.7.0", "react@>= 17.0.1", react@>=16.8, react@>=16.8.0, react@>=17.0.0, react@18.2.0:
+react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.6.0 || ^17.0.0 || ^18.0.0", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.0.0, react@^18.2.0, "react@>= 17.0.1", react@>=16.8, react@>=16.8.0, react@>=17.0.0, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==

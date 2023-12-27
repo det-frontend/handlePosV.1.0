@@ -9,21 +9,53 @@ import { ScrollView } from "react-native";
 import Loader from "../../components/Loader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Print from "expo-print";
+import { useFocusEffect } from "@react-navigation/native";
+import { manipulateAsync } from "expo-image-manipulator";
+import { Asset } from "expo-asset";
 
 export const Vouchers = ({ navigation }) => {
+  const [asyncImage, setAsyncImage] = useState(null);
   const [read, setRead] = React.useState();
   const [dailySale, setDailySale] = useState([]);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const [openCardId, setOpenCardId] = useState(null);
-  console.log("==ff==================================");
-  console.log(read);
-  console.log("==ff==================================");
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getImage();
+      getData(); // Call the function to fetch user data
+    }, [])
+  );
+
+  const getImage = async () => {
+    try {
+      const value = await AsyncStorage.getItem("image");
+      if (value !== null) {
+        // value previously stored
+        console.log("=ddd===================================");
+        console.log(value);
+        console.log("====================================");
+        setAsyncImage(value);
+      }
+    } catch (e) {
+      // error reading value
+      console.log("====================================");
+      console.log("get err");
+      console.log("====================================");
+    }
+  };
+  // useEffect(() => {
+  //   getImage();
+  // }, []);
 
   useEffect(() => {
     const fetchit = async () => {
       setLoading(true);
       const { data } = await DailySaleApi.dailySales();
+      // console.log("==dddd==================================");
+      // console.log(data);
+      // console.log("====================================");
       setLoading(false);
 
       if (data.result) {
@@ -31,11 +63,8 @@ export const Vouchers = ({ navigation }) => {
       }
     };
     fetchit();
+    console.log("useeffect");
   }, []);
-
-  useEffect(() => {
-    getData();
-  }, [read]);
 
   const print = async (item, read) => {
     const utcTimestamp = item?.createAt;
@@ -54,6 +83,11 @@ export const Vouchers = ({ navigation }) => {
     if (hour === 0) {
       hour = 12;
     }
+    // const asset = Asset.fromModule(require("../../../assets/logo.png"));
+    const asset = Asset.fromModule(asyncImage);
+    const image = await manipulateAsync(asset.localUri ?? asset.uri, [], {
+      base64: true,
+    });
     const html = `<html>
   <head>
       <meta name="viewport"
@@ -71,7 +105,9 @@ export const Vouchers = ({ navigation }) => {
 
   <body>
       <div style="text-align: center;">
-          
+           <img
+        src="data:image/jpeg;base64,${image.base64}"
+        style="width: 25vw;margin-bottom:5px ; "/>
           <table>
               <tr>
                   <td style="font-weight: bold; ">F.S Code</td>
@@ -142,9 +178,12 @@ export const Vouchers = ({ navigation }) => {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("info");
-      setRead(JSON.parse(jsonValue));
+      setRead(JSON.parse(jsonValue) || "");
+      console.log("===bbbbb=================================");
       console.log("...");
       console.log(JSON.parse(jsonValue));
+      // console.log(read);
+      console.log("===bbbbb=================================");
     } catch (e) {
       console.log("get err");
     }

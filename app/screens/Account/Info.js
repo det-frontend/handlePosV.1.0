@@ -5,7 +5,8 @@ import { Screen } from "../../components/Screen";
 import AppInput from "../../components/form/AppInput";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomAlert from "../../components/CustomAlert";
-
+import ImageInput from "../../components/ImageInput";
+      
 const Info = ({ navigation }) => {
   const [edit, setEdit] = useState(false);
   const [read, setRead] = useState();
@@ -59,6 +60,7 @@ const Info = ({ navigation }) => {
     try {
       // await AsyncStorage.clear();
       await AsyncStorage.removeItem("info");
+      await AsyncStorage.removeItem("image");
       console.log("Done.");
     } catch (e) {
       console.log("err");
@@ -85,9 +87,6 @@ const Info = ({ navigation }) => {
         onClose={handleClose}
       />
       <ScrollView>
-        {/* <View style={tw`w-[100%]`}>
-          <Image style={tw`h-[200px]`} resizeMode="center" source={image} />
-        </View> */}
         <View style={{ width: "100%", height: 200, marginBottom: 20 }}>
           <Image
             style={{ flex: 1, width: undefined, height: undefined }}
@@ -105,15 +104,28 @@ const Info = ({ navigation }) => {
         <View
           style={tw`  mx-auto flex-row justify-between flex mt-3 items-center w-full`}
         >
-          <View style={tw`bg-[#353b48] w-[48%] flex p-4 items-center`}>
-            <Text style={tw` text-xl text-gray-400`}>
-              {read ? read.ph_1 : "....."}
-            </Text>
-          </View>
-          <View style={tw`bg-[#353b48] w-[48%] flex p-4 items-center`}>
-            <Text style={tw` text-xl text-gray-400`}>
-              {read ? read.ph_2 : "....."}
-            </Text>
+          <ImageInput />
+          <View style={tw`flex gap-2 w-[250px]`}>
+            <View style={tw`bg-[#353b48] w-full flex p-4 items-center`}>
+              <Text style={tw` text-xl text-gray-400`}>
+                {read ? read.ph_1 : "....."}
+              </Text>
+            </View>
+            <View style={tw`bg-[#353b48] w-full flex p-4 items-center`}>
+              <Text style={tw` text-xl text-gray-400`}>
+                {read ? read.ph_2 : "....."}
+              </Text>
+            </View>
+            <TouchableOpacity
+              style={tw`w-full  border border-gray-700 rounded`}
+              onPress={() => setEdit((edit) => !edit)}
+            >
+              <Text
+                style={tw`text-center text-gray-500 border-2 border-gray-800 bg-gray-800 px-6 py-3 rounded-md text-xl`}
+              >
+                {read ? "Edit" : "Add"}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -121,7 +133,7 @@ const Info = ({ navigation }) => {
           style={tw`bg-[#353b48] p-4 flex flex-row justify-between  mx-auto mt-3 gap-2 flex p-4 w-full`}
         >
           <TouchableOpacity
-            style={tw`w-[48%]`}
+            style={tw`w-full`}
             onPress={() => navigation.navigate("index")}
           >
             <Text
@@ -130,7 +142,7 @@ const Info = ({ navigation }) => {
               Back
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={tw`w-[48%]`}
             onPress={() => setEdit((edit) => !edit)}
           >
@@ -139,19 +151,19 @@ const Info = ({ navigation }) => {
             >
               {read ? "Edit" : "Add"}
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         {edit && (
           <View
             style={tw`bg-[#353b48]  mx-auto mt-5 flex p-4 py-8  items-center w-full`}
           >
-            <View style={tw`bg-gray-600  rounded-lg  text-center py-14 px-16`}>
+            <View style={tw`bg-gray-600  rounded-lg  text-center py-14 px-14`}>
               <Text
                 style={tw`text-3xl text-center mt-[-15px]  text-gray-800 font-bold`}
               >
                 Station Info
               </Text>
-              <View style={tw`mt-5 flex gap-3`}>
+              <View style={tw`mt-5 w-[300px] flex gap-3`}>
                 <AppInput
                   value={read?.station}
                   icon="home"
@@ -200,7 +212,7 @@ const Info = ({ navigation }) => {
         </TouchableOpacity> */}
         {read && (
           <TouchableOpacity
-            style={tw`w-[100%]`}
+            style={tw`w-[100%] mb-4`}
             onPress={() => setShowAlert(true)}
           >
             <Text
@@ -228,9 +240,7 @@ const Info = ({ navigation }) => {
             alert
           </Text>
         </TouchableOpacity> */}
-        <View>
-          
-        </View>
+        <View></View>
       </ScrollView>
     </Screen>
   );

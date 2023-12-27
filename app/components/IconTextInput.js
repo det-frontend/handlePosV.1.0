@@ -25,9 +25,7 @@ export const IconTextInput = ({ placeholder, iconName, ...rest }) => {
   }
   // return ( <View style={styles.inputContainer}>
   return (
-    <View
-      style={tw`flex flex-row  items-center rounded h-15 bg-gray-600 px-4`}
-    >
+    <View style={tw`flex flex-row  items-center rounded h-15 bg-gray-600 px-4`}>
       <Ionicons name={iconName} size={32} color={color.light} />
       <TextInput
         placeholder={placeholder}
