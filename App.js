@@ -12,6 +12,7 @@ import { Authnavigator } from "./app/Navigation/Authnavigator";
 import { useContext, useEffect, useState } from "react";
 import { Welcome } from "./app/Navigation/Welcome";
 import AuthContext from "./app/auth/context";
+import VoucherReload from "./app/auth/VoucherReload";
 import authStorage from "./app/auth/storage";
 import { jwtDecode } from "jwt-decode";
 
@@ -61,6 +62,7 @@ function HomeTabs() {
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [re, setRe] = useState(false);
   // const [isReady, setIsReady] = useState(false);
   // const { user, setUser } = useContext(AuthContext);
 
@@ -92,12 +94,14 @@ export default function App() {
   //   );
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <NavigationContainer>
-        {/* <Welcome /> */}
-        {user ? <Authnavigator /> : <Welcome />}
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <VoucherReload.Provider value={{ re, setRe }}>
+      <AuthContext.Provider value={{ user, setUser }}>
+        <NavigationContainer>
+          {/* <Welcome /> */}
+          {user ? <Authnavigator /> : <Welcome />}
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </VoucherReload.Provider>
   );
 }
 

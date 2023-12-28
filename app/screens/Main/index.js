@@ -19,6 +19,8 @@ import PermitComponent from "../../components/PermitComponent";
 import Loader from "../../components/Loader";
 import Card from "../../components/Card";
 import PermitApi from "../../api/permit";
+import LiveCount from "../../components/LiveCount";
+import VoucherReload from "../../auth/VoucherReload";
 
 export const Main = () => {
   const [final, setFinal] = useState(false);
@@ -60,12 +62,17 @@ export const Main = () => {
     couName: "",
     couId: "",
   });
+  const { setRe } = useContext(VoucherReload);
+  // console.log("====================================");
+  // console.log(setRe);
+  // console.log("====================================");
 
   const [payloadHistory, setPayloadHistory] = useState([]);
   const payloadHistoryRef = useRef(payloadHistory);
   const [noMorePermit, setNoMorePermit] = useState(null);
   const [permitd, setPermitd] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [noPermit, setNopermit] = useState(false);
   // const [loading, setLoading] = useState(false);
   const [nozzle1FuelDetail, setNozzle1FuelDetail] = useState({
     liter: 0,
@@ -345,72 +352,9 @@ export const Main = () => {
 
           return updatedTopicsArray;
         });
-        setVisible(false);
+        setRe((pre) => !pre);
+        setModalVisible(false);
         return;
-      }
-
-      if (premitFormInfo.type === "kyat") {
-        setLoading(true);
-        const permitObject = await presetApi.price(
-          singleData?.dep_no,
-          singleData?.nozzle_no,
-          singleData?.fuel_type,
-          premitFormInfo.value,
-          premitFormInfo.carNo,
-          premitFormInfo.vehicleType,
-          premitFormInfo.cashType,
-          singleData?.daily_price,
-          premitFormInfo.couObjId
-        );
-
-        if (permitObject.data?.con) {
-          setPayloadHistory((prevTopics) => [
-            ...prevTopics,
-            parseInt(singleData?.nozzle_no),
-          ]);
-          if (!permitObject.data?.con) {
-            setPermitState(true);
-            let smg = permitObject.data.msg;
-            smg = smg.split(":");
-            smg = smg[2];
-
-            setVocNumber(smg);
-            return;
-          }
-
-          setLoading(false);
-
-          if (permitObject.data?.result) {
-            setHttpCode(true);
-            setFetchObj(permitObject.data.result);
-            setPrintFormInfo({
-              nozzle_no: singleData?.nozzle_no,
-              objId: permitObject.data.result._id,
-              vocono: permitObject.data.result.vocono,
-              cashType: permitObject.data.result.cashType,
-              carNo: permitObject.data.result.carNo,
-              purposeOfUse: permitObject.data.result.vehicleType,
-              customerName: premitFormInfo.couName,
-              customerId: premitFormInfo.cou_id,
-              customerObjId: premitFormInfo.couObjId,
-            });
-            setRealTimeEdit({
-              object_Id: permitObject.data.result._id,
-              cash_type: permitObject.data.result.cashType,
-              car_no: permitObject.data.result.carNo,
-              purpose_of_use: permitObject.data.result.vehicleType,
-              customer_name: premitFormInfo.couName,
-              customer_id: premitFormInfo.cou_id,
-            });
-            setIsPermit(true);
-          }
-
-          if (!permitObject.data?.con) {
-            // auth.logOut();
-          }
-
-          setReadyState(false);
-        }
       }
 
       if (permitObject.data?.result) {
@@ -487,8 +431,8 @@ export const Main = () => {
           setFinalData(false);
           setAllDone(false);
           setPermitState(false);
-
-          setVisible(false);
+          setRe((pre) => !pre);
+          setModalVisible(false);
           setIsClosed(false);
           setPayloadHistory((prev) =>
             prev.filter(
@@ -638,6 +582,69 @@ export const Main = () => {
       }
     }
 
+    if (premitFormInfo.type === "liter") {
+      setLoading(true);
+      const permitObject = await presetApi.liter(
+        obj.dep_no,
+        obj.nozzle_no,
+        obj.fuel_type,
+        premitFormInfo.value,
+        premitFormInfo.carNo,
+        premitFormInfo.vehicleType,
+        premitFormInfo.cashType,
+        obj.daily_price,
+        premitFormInfo.couObjId
+      );
+      setLoading(false);
+
+      if (permitObject.data?.con) {
+        setPayloadHistory((prevTopics) => [
+          ...prevTopics,
+          parseInt(obj.nozzle_no),
+        ]);
+      }
+
+      if (!permitObject.data?.con) {
+        setPermitState(true);
+        let smg = permitObject.data.msg;
+        smg = smg.split(":");
+        smg = smg[2];
+
+        setVocNumber(smg);
+        return;
+      }
+
+      if (permitObject.data?.result) {
+        setHttpCode(true);
+        setFetchObj(permitObject.data.result);
+        setPrintFormInfo({
+          nozzle_no: obj.nozzle_no,
+          objId: permitObject.data.result._id,
+          vocono: permitObject.data.result.vocono,
+          cashType: permitObject.data.result.cashType,
+          carNo: permitObject.data.result.carNo,
+          purposeOfUse: permitObject.data.result.vehicleType,
+          customerName: premitFormInfo.couName,
+          customerId: premitFormInfo.cou_id,
+          customerObjId: premitFormInfo.couObjId,
+        });
+        setRealTimeEdit({
+          object_Id: permitObject.data.result._id,
+          cash_type: permitObject.data.result.cashType,
+          car_no: permitObject.data.result.carNo,
+          purpose_of_use: permitObject.data.result.vehicleType,
+          customer_name: premitFormInfo.couName,
+          customer_id: premitFormInfo.cou_id,
+        });
+        setIsPermit(true);
+      }
+
+      if (!permitObject.data?.con) {
+        // auth.logOut();
+      }
+      setReadyState(false);
+    }
+
     setTimeout(() => {
       setPresetButtonDisable(false);
     }, 3000);
@@ -645,7 +652,7 @@ export const Main = () => {
 
   const handleReadyClick = () => {
     setReadyState(true);
-    setVisible(true);
+    setModalVisible(true);
   };
   const handlePrint = () => {
     setLoading(true);
@@ -660,7 +667,8 @@ export const Main = () => {
       );
     };
     setLoading(false);
-    setVisible(false);
+    setRe((pre) => !pre);
+    setModalVisible(false);
     setIsClosed(false);
     setIsPermit(false);
 
@@ -694,6 +702,10 @@ export const Main = () => {
     }
   };
 
+  // console.log("===from index=================================");
+  // console.log("isPermit is ", isPermit);
+  // console.log("====================================");
+
   return (
     <Screen>
       {load ? (
@@ -713,6 +725,7 @@ export const Main = () => {
         >
           {dispenserCards.map((e, index) => (
             <Card
+              setModalVisible={setModalVisible}
               allDone={allDone}
               setAllDone={setAllDone}
               setPermit={setPermit}
@@ -726,7 +739,6 @@ export const Main = () => {
               finalData={finalData}
               setFinalData={setFinalData}
               img={img}
-              setModalVisible={setModalVisible}
               setPayloadHistory={setPayloadHistory}
               noMorePermit={noMorePermit}
               obj={e}
@@ -735,34 +747,67 @@ export const Main = () => {
             />
           ))}
           {/* {permitHandler(e.nozzle_no) ? ( */}
-          <PermitComponent
-            obj={singleData}
-            fetchObj={fetchObj}
-            setSaleLiter={setSaleLiter}
-            setSalePrice={setSalePrice}
-            printFormInfo={printFormInfo}
-            setPrintFormInfo={setPrintFormInfo}
-            handlePrint={handlePrint}
-            handleErrorCon={handleErrorCon}
-            nozzle1FuelDetail={nozzle1FuelDetail}
-            final={final}
-            setRealTimeEdit={setRealTimeEdit}
-            handleRealTimeUpdate={handleRealTimeUpdate}
-            realTimeEditChooseOne={realTimeEditChooseOne}
-            permit={permit}
-            handlePermit={handlePermit}
-            isPermit={isPermit}
-            singleData={singleData}
-            setModalVisible={setModalVisible}
-            modalVisible={modalVisible}
-            noz={noz}
-            setPermitState={setPermitState}
-            vocNumber={vocNumber}
-            permitState={permitState}
-            setPremitFormInfo={setPremitFormInfo}
-            chooseOne={chooseOne}
-            permitButtonDisable={permitButtonDisable}
-          />
+          {modalVisible &&
+            (isPermit ? (
+              <LiveCount
+                obj={singleData}
+                fetchObj={fetchObj}
+                setSaleLiter={setSaleLiter}
+                setModalVisiblesetRe
+                setSalePrice={setSalePrice}
+                printFormInfo={printFormInfo}
+                setPrintFormInfo={setPrintFormInfo}
+                handlePrint={handlePrint}
+                handleErrorCon={handleErrorCon}
+                nozzle1FuelDetail={nozzle1FuelDetailRef}
+                final={final}
+                setRealTimeEdit={setRealTimeEdit}
+                handleRealTimeUpdate={handleRealTimeUpdate}
+                realTimeEditChooseOne={realTimeEditChooseOne}
+                permit={permit}
+                isPermit={isPermit}
+                singleData={singleData}
+                setModalVisible={setModalVisible}
+                modalVisible={modalVisible}
+                noz={noz}
+                setPermitState={setPermitState}
+                vocNumber={vocNumber}
+                permitState={permitState}
+                setPremitFormInfo={setPremitFormInfo}
+                chooseOne={chooseOne}
+                permitButtonDisable={permitButtonDisable}
+              />
+            ) : (
+              <PermitComponent
+                obj={singleData}
+                fetchObj={fetchObj}
+                setSaleLiter={setSaleLiter}
+                setSalePrice={setSalePrice}
+                printFormInfo={printFormInfo}
+                setPrintFormInfo={setPrintFormInfo}
+                handlePrint={handlePrint}
+                handleErrorCon={handleErrorCon}
+                nozzle1FuelDetail={nozzle1FuelDetail}
+                final={final}
+                setRealTimeEdit={setRealTimeEdit}
+                handleRealTimeUpdate={handleRealTimeUpdate}
+                realTimeEditChooseOne={realTimeEditChooseOne}
+                permit={permit}
+                handlePermit={handlePermit}
+                isPermit={isPermit}
+                singleData={singleData}
+                setModalVisible={setModalVisible}
+                modalVisible={modalVisible}
+                noz={noz}
+                setPermitState={setPermitState}
+                vocNumber={vocNumber}
+                permitState={permitState}
+                setPremitFormInfo={setPremitFormInfo}
+                chooseOne={chooseOne}
+                permitButtonDisable={permitButtonDisable}
+              />
+            ))}
+
           {/* ) : (
             <PermitComponent
               setModalVisible={setModalVisible}

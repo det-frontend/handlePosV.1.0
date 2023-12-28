@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import { Screen } from "../../components/Screen";
 import VouncherCard from "../../components/VouncherCard";
@@ -12,14 +12,17 @@ import * as Print from "expo-print";
 import { useFocusEffect } from "@react-navigation/native";
 import { manipulateAsync } from "expo-image-manipulator";
 import { Asset } from "expo-asset";
+import VoucherReload from "../../auth/VoucherReload";
 
 export const Vouchers = ({ navigation }) => {
+  const { re } = useContext(VoucherReload);
   const [asyncImage, setAsyncImage] = useState(null);
   const [read, setRead] = React.useState();
   const [dailySale, setDailySale] = useState([]);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const [openCardId, setOpenCardId] = useState(null);
+  const { setRe } = useContext(VoucherReload);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -28,14 +31,18 @@ export const Vouchers = ({ navigation }) => {
     }, [])
   );
 
+  console.log("=====rrr===============================");
+  console.log(re);
+  console.log("====================================");
+
   const getImage = async () => {
     try {
       const value = await AsyncStorage.getItem("image");
       if (value !== null) {
         // value previously stored
-        console.log("=ddd===================================");
-        console.log(value);
-        console.log("====================================");
+        // console.log("=ddd===================================");
+        // console.log(value);
+        // console.log("====================================");
         setAsyncImage(value);
       }
     } catch (e) {
@@ -64,7 +71,7 @@ export const Vouchers = ({ navigation }) => {
     };
     fetchit();
     console.log("useeffect");
-  }, []);
+  }, [re]);
 
   const print = async (item, read) => {
     const utcTimestamp = item?.createAt;
@@ -88,6 +95,7 @@ export const Vouchers = ({ navigation }) => {
     const image = await manipulateAsync(asset.localUri ?? asset.uri, [], {
       base64: true,
     });
+
     const html = `<html>
   <head>
       <meta name="viewport"
@@ -179,11 +187,11 @@ export const Vouchers = ({ navigation }) => {
     try {
       const jsonValue = await AsyncStorage.getItem("info");
       setRead(JSON.parse(jsonValue) || "");
-      console.log("===bbbbb=================================");
-      console.log("...");
-      console.log(JSON.parse(jsonValue));
-      // console.log(read);
-      console.log("===bbbbb=================================");
+      // console.log("===bbbbb=================================");
+      // console.log("...");
+      // console.log(JSON.parse(jsonValue));
+      // // console.log(read);
+      // console.log("===bbbbb=================================");
     } catch (e) {
       console.log("get err");
     }

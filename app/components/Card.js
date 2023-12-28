@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import tw from "twrnc";
 import color from "../config/color";
+import VoucherReload from "../auth/VoucherReload";
 
 const Card = ({
   obj,
@@ -26,7 +27,6 @@ const Card = ({
   //   setFetchNew,
 }) => {
   const [isClosed, setIsClosed] = useState(false);
-  const [visible, setVisible] = useState(false);
   const [isAlready, setIsAlready] = useState(false);
   const [myInfo, setMyInfo] = useState({
     objectId: null,
@@ -72,6 +72,7 @@ const Card = ({
   const [presetButtonDisable, setPresetButtonDisable] = useState(false);
   const [permitButtonDisable, setPermitButtonDisable] = useState(false);
   const active = permitHandler(obj.nozzle_no);
+  const { setRe } = useContext(VoucherReload);
   //   const [noPermit, setNopermit] = useState(false);
   //   const [visible, setVisible] = useState(false);
   //   const [nozzleActive, setNozzleActive] = useState(false);
@@ -81,7 +82,7 @@ const Card = ({
   useEffect(() => {
     if (parseInt(noMorePermit) === parseInt(obj.nozzle_no)) {
       setNopermit(true);
-      setVisible(false);
+      setModalVisible(false);
       setNozzleActive(false);
 
       setPayloadHistory((prev) =>
@@ -97,6 +98,7 @@ const Card = ({
 
   useEffect(() => {
     if (parseInt(finalData) === parseInt(obj.nozzle_no)) {
+      setRe((pre) => !pre);
       setFinal(true);
       setPermitState(true);
       setNozzleActive(false);
@@ -107,9 +109,10 @@ const Card = ({
     if (parseInt(allDone) === parseInt(obj.nozzle_no)) {
       setLiveData("");
       setNozzleActive(false);
-      setVisible(false);
+      setModalVisible(false);
       setIsClosed(false);
       setIsPermit(false);
+      // setRe((pre) => !pre);
       setFinal(false);
       setNopermit(false);
       setFinalData(false);

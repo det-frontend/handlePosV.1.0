@@ -134,9 +134,9 @@ function PermitComponent({
     return null;
   }
 
-  console.log("==dddd==================================");
-  console.log(isPermit);
-  console.log("====================================");
+  // console.log("==dddd==================================");
+  // console.log(isPermit);
+  // console.log("====================================");
 
   return (
     <Modal animationType="fade" transparent={true} visible={modalVisible} from>

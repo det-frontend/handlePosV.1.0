@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 // import CashPickerItem from "./CashPickerItem";
 import { CustomButton } from "./LoginButton";
 import CashPickerItem from "./CashPickerItem";
+import tw from "twrnc";
 
 function CashTypePicker({
   icon,
@@ -60,28 +61,26 @@ function CashTypePicker({
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-        <View style={styles.container}>
+        <View
+          style={tw`bg-gray-600 flex rounded-md h-14 items-center flex flex-row text-gray-200 justify-between px-4`}
+        >
           {icon && (
             <MaterialCommunityIcons
               name={icon}
               size={25}
               color={"black"}
-              style={styles.icon}
+              style={tw`text-gray-300 ml-[-2px] text-[40px]`}
             />
           )}
           {selectedItem ? (
-            <Text style={{ flex: 1 }} styles={styles.text}>
-              {selectedItem}
-            </Text>
+            <Text style={tw`text-gray-300 text-lg`}>{selectedItem}</Text>
           ) : (
-            <Text style={{ flex: 1 }} styles={styles.placeholder}>
-              {placeholder}
-            </Text>
+            <Text style={tw`text-gray-200 mr-auto ml-2 font-semibold text-lg`}>{placeholder}</Text>
           )}
           <MaterialCommunityIcons
             name="chevron-down"
             size={20}
-            color={"black"}
+            color={"gray"}
           />
         </View>
       </TouchableWithoutFeedback>
