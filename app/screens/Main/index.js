@@ -56,7 +56,7 @@ export const Main = () => {
   const [realTimeEdit, setRealTimeEdit] = useState({
     objId: "",
     cashType: "",
-    carNo: "",
+    carNo: "",  
     purpose_of_use: "",
     couObjId: "",
     couName: "",

@@ -116,7 +116,6 @@ export const Login = () => {
               justifyContent: "center",
               alignItems: "center",
               marginTop: 50,
-
             }}
           >
             {/* <Image source={require('../../../assets/2189207.png')} style={{width:350,height:350}} /> */}
@@ -174,9 +173,7 @@ export const Login = () => {
           </Formik>
         </View>
       </ScrollView>
-      <Text
-        style={tw`text-white mx-auto mb-3 pt-2`}
-      >
+      <Text style={tw`text-white mx-auto mb-3 pt-2`}>
         © 2023 Digital Engineering Tech Ltd. All rights reserved.
       </Text>
     </Screen>
