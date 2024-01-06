@@ -6,6 +6,7 @@ import VoucherReload from "../auth/VoucherReload";
 
 const Card = ({
   obj,
+  setReadyState,
   setSingleData,
   finalData,
   setFinalData,
@@ -37,7 +38,11 @@ const Card = ({
     cashType: null,
     vocono: null,
   });
-
+  const handleReadyClick = () => {
+    setSingleData(obj);
+    setReadyState(true);
+    setModalVisible(true);
+  };
   //   const [isPermit, setIsPermit] = useState(false);
   const [isErrorCon, setIsErrorCon] = useState(false);
   const [premitFormInfo, setPremitFormInfo] = useState();
@@ -66,7 +71,6 @@ const Card = ({
   const [managerPassword, setManagerPassword] = useState(undefined);
   const [errorPermission, setErrorPermission] = useState("");
   const [errorUpdate, setErrorUpdate] = useState("");
-  const [readyState, setReadyState] = useState("");
   const [readyStateObj, setReadyStateObj] = useState("");
   const [vocNumber, setVocNumber] = useState("");
   const [presetButtonDisable, setPresetButtonDisable] = useState(false);
@@ -157,6 +161,12 @@ const Card = ({
       clearInterval(interval);
     };
   }, []);
+  const normalClick = () => {
+    setModalVisible((prev) => !prev),
+      //   setNoz(obj.nozzle_no),
+      setSingleData(obj);
+    setPermit(permitHandler(obj.nozzle_no));
+  };
 
   return (
     <View
@@ -176,12 +186,13 @@ const Card = ({
     >
       {liveDespenserHistory?.includes(obj.dep_no) ? (
         <TouchableOpacity
-          onPress={() => {
-            setModalVisible((prev) => !prev),
-              //   setNoz(obj.nozzle_no),
-              setSingleData(obj);
-            setPermit(permitHandler(obj.nozzle_no));
-          }}
+          onPress={active ? normalClick : handleReadyClick}
+          // onPress={() => {
+          //   setModalVisible((prev) => !prev),
+          //     //   setNoz(obj.nozzle_no),
+          //     setSingleData(obj);
+          //   setPermit(permitHandler(obj.nozzle_no));
+          // }}
           style={tw``}
         >
           <Image

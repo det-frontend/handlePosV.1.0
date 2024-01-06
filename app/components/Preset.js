@@ -11,6 +11,7 @@ import {
   Poppins_400Regular,
 } from "@expo-google-fonts/poppins";
 import tw from "twrnc";
+import Loader from "./Loader";
 const customers = [
   {
     cou_name: "Individual Customer",
@@ -51,88 +52,114 @@ const categories = [
   { label: "Station Use", value: 30 },
 ];
 
-function PermitComponent({
+function Preset({
+  setReadyState,
   modalVisible,
-  isPermit,
-  permit,
-  singleData,
-  noz,
   setModalVisible,
-  handlePermit,
-  setPremitFormInfo,
-  permitState,
+  handleReadyPermit,
+  icon,
+  placeholder,
+  handleReadyState,
+  selectedItem,
+  onSelectedItem,
   chooseOne,
-  permitButtonDisable,
-  handleErrorCon,
-  printFormInfo,
-  setSaleLiter,
-  setSalePrice,
-  nozzle1FuelDetail,
-  setRealTimeEdit,
-  handleRealTimeUpdate,
-  realTimeEditChooseOne,
-  setPrintFormInfo,
+  setReadyStateObj,
   obj,
-  fetchObj,
+  setPremitFormInfo,
+  presetButtonDisable,
+  Loading,
+  ...otherProps
 }) {
+  const [readyStateItem, setReadyStateItem] = useState("kyat");
   const [customer, setCustomer] = useState(customers[0]);
-  const [category, setCategory] = useState(categories[0]);
-  const [carNo, setCarNo] = useState("-");
+  const [category, setCategory] = useState({ label: "Cycle", value: 1 });
+  const [carNo, setCarNo] = useState(" ");
   const [paymentNo, setPyamentNo] = useState("Cash");
-  const [carNoForm, setCarNoForm] = useState(false);
-
-  // const [cashType, setCashType] = useState(printFormInfo.cashType);
-  // const [carNo, setCarNo] = useState(printFormInfo.carNo);
-  // const [customer, setCustomer] = useState({
-  //   cou_name: printFormInfo.customerName,
-  //   cou_id: printFormInfo.customerId,
-  //   couObjId: "",
-  // });
-  // const [category, setCategory] = useState(printFormInfo.purposeOfUse);
-
-  useEffect(() => {
-    setPrintFormInfo({
-      nozzle_no: singleData?.nozzle_no,
-      objId: printFormInfo?.objId,
-      vocono: fetchObj?.vocono,
-      // cashType: cashType,
-      carNo: carNo,
-      purposeOfUse: category,
-      customerName: customer.cou_name,
-      customerObjId: customer._id,
-      customerId: customer.cou_id,
-    });
-  }, [carNo, customer, category]);
-  // }, [cashType, carNo, customer, category]);
-
-  let [fontsLoaded, fontError] = useFonts({
-    Poppins_900Black,
-    Poppins_400Regular,
-  });
-  const handleChange = () => {};
+  const [numberValue, setNumberValue] = useState("");
+  const [lNeed, setLNeed] = useState(false);
+  console.log("===load=================================");
+  console.log(Loading);
+  console.log("====================================");
 
   const handleCarNo = (text) => {
     setCarNo(text);
   };
-  useEffect(() => {
-    if (category.label === "Cycle") {
-      setCarNoForm(false);
-    } else if (category.label !== "Cycle") {
-      setCarNoForm(true);
-    }
-    setPremitFormInfo({
-      couObjId: customer._id,
-      couName: customer.cou_name,
-      cou_id: customer.cou_id,
-      vehicleType: category.label,
-      carNo: carNo,
-      // cashType: paymentNo,
-    });
-  }, [customer, category, carNo, paymentNo]);
+  const handleChange = () => {};
 
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
+  useEffect(() => {
+    if (readyStateItem == "liter") {
+      setLNeed(true);
+      //     setReadyStateObj({
+      //         depNo:obj.dep_no,
+      //         nozzleNo: obj.nozzle_no,
+      //         fuelType: obj.fuel_type,
+      //         type: readyStateItem,
+      //         carNo: carNo,
+      //         vehicleType: category.label,
+      //         cashType: paymentNo,
+      //         salePrice: obj.daily_price,
+      //         value: numberValue,
+      //         couObjId: customer._id,
+      //         couName: customer.cou_name,
+      //         cou_id: customer.cou_id,
+      //     });
+
+      //      setPremitFormInfo({
+      //     couObjId: customer._id,
+      //     couName: customer.cou_name,
+      //     cou_id: customer.cou_id,
+      //     vehicleType: category.label,
+      //     carNo: carNo,
+      //     cashType: paymentNo
+      // });
+
+      // if (parseFloat(numberValue) % 1 !== 0) {
+      // setLNeed(false);
+
+      setPremitFormInfo({
+        couObjId: customer._id,
+        couName: customer.cou_name,
+        cou_id: customer.cou_id,
+        vehicleType: category.label,
+        carNo: carNo,
+        cashType: paymentNo,
+        type: readyStateItem,
+        value: numberValue,
+      });
+      // } else {
+      //     setLNeed(true);
+      // }
+    }
+
+    if (readyStateItem == "kyat") {
+      setLNeed(false);
+      // setReadyStateObj({
+      //     depNo:obj.dep_no,
+      //     nozzleNo: obj.nozzle_no,
+      //     fuelType: obj.fuel_type,
+      //     type: readyStateItem,
+      //     carNo: carNo,
+      //     vehicleType: category.label,
+      //     cashType: paymentNo,
+      //     salePrice: obj.daily_price,
+      //     value: numberValue,
+      //     couObjId: customer._id,
+      //     couName: customer.cou_name,
+      //     cou_id: customer.cou_id,
+      // });
+
+      setPremitFormInfo({
+        couObjId: customer._id,
+        couName: customer.cou_name,
+        cou_id: customer.cou_id,
+        vehicleType: category.label,
+        carNo: carNo,
+        cashType: paymentNo,
+        type: readyStateItem,
+        value: numberValue,
+      });
+    }
+  }, [readyStateItem, customer, category, carNo, paymentNo, numberValue]);
 
   // console.log("==dddd==================================");
   // console.log(isPermit);
@@ -159,7 +186,9 @@ function PermitComponent({
       >
         <TouchableOpacity
           style={tw`w-30 mr-auto rounded-md bg-[${color.bottomActiveNavigation}] flex-row justify-start items-center gap-3 p-1`}
-          onPress={() => setModalVisible(false)}
+          onPress={() => {
+            setModalVisible(false), setReadyState(false);
+          }}
         >
           <Ionicons size={40} color={color.yello} name="arrow-left" />
           <Text
@@ -182,53 +211,26 @@ function PermitComponent({
             fontFamily: "Poppins_400Regular",
           }}
         >
-          Nozzle - {singleData?.nozzle_no} (Permit)
+          Nozzle - {obj?.nozzle_no} (Permit)
         </Text>
         {/* live data  */}
-        {isPermit && (
-          <View>
-            <View style={tw`flex flex-row gap-2 mb-2`}>
-              <View
-                style={tw` flex items-center justify-center rounded-md w-30 `}
-              >
-                {/* <Text style={tw``}>Liter</Text> */}
-                <Text style={tw`text-xl text-gray-300`}>Liters</Text>
-              </View>
-              <View
-                style={tw` flex items-center justify-center rounded-md w-50 `}
-              >
-                {/* <Text style={tw``}>Liter</Text> */}
-                <Text style={tw`text-xl text-gray-300`}>Kyats</Text>
-              </View>
-            </View>
-            <View style={tw`flex flex-row gap-2 mb-4`}>
-              <View
-                style={tw`bg-gray-700/60 border-2 border-gray-300 flex items-center justify-center rounded-md w-30 h-20`}
-              >
-                {/* <Text style={tw``}>Liter</Text> */}
-                <Text style={tw`text-2xl text-gray-300`}>23.88</Text>
-              </View>
-              <View
-                style={tw`bg-gray-700/60 border-2 border-gray-300 flex items-center justify-center rounded-md w-50 h-20`}
-              >
-                {/* <Text style={tw``}>Liter</Text> */}
-                <Text style={tw`text-2xl text-gray-300`}>23.88</Text>
-              </View>
-            </View>
-          </View>
-        )}
-
         <View style={tw`w-[96%] flex gap-2`}>
+          <IconTextInput
+            placeholder="Price"
+            iconName={"tag-text"}
+            onChangeText={(value) => setNumberValue(value)}
+            placeholderTextColor={color.white}
+          />
           <IconTextInput
             placeholder="Customer Name"
             iconName={"email"}
-            onChangeText={handleChange("emailOrUsername")}
+            onChangeText={(customer) => setCustomer(customer)}
             placeholderTextColor={color.white}
           />
           <IconTextInput
             placeholder="Customer Id"
-            iconName={"email"}
-            onChangeText={handleChange("emailOrUsername")}
+            iconName={"account"}
+            onChangeText={(customer) => setCustomer(customer)}
             placeholderTextColor={color.white}
           />
           {/* <CashTypePicker
@@ -239,39 +241,20 @@ function PermitComponent({
           /> */}
           <IconTextInput
             placeholder="Car No"
+            onSearch={handleCarNo}
             iconName={"car"}
             onChangeText={handleChange("emailOrUsername")}
             placeholderTextColor={color.white}
           />
-
           <CustomButton
-            title={"Permit"}
-            onPress={handlePermit}
+            title={"Preset"}
             style={{ backgroundColor: color.activeColor }}
+            onPress={handleReadyState}
           />
-
-          {/* {isPermit ? (
-            <CustomButton
-              title={"Update"}
-              // onPress={handlePermit}
-              style={{ backgroundColor: color.activeColor }}
-            />
-          ) : permit ? (
-            <CustomButton
-              title={"Permit"}
-              onPress={handlePermit}
-              style={{ backgroundColor: color.activeColor }}
-            />
-          ) : (
-            <CustomButton
-              title={"Preset"}
-              style={{ backgroundColor: color.activeColor }}
-            />
-          )} */}
         </View>
       </View>
     </Modal>
   );
 }
 
-export default PermitComponent;
+export default Preset;

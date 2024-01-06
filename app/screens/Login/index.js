@@ -36,6 +36,8 @@ const validationSchema = yup.object().shape({
 });
 
 export const Login = () => {
+  const [text, setText] = useState("default");
+  const [test, setTest] = useState("click doesn't work ");
   const authContext = useContext(AuthContext);
 
   global.atob = decode;
@@ -53,21 +55,27 @@ export const Login = () => {
 
   const handleLogin = async ({ emailOrUsername, password }) => {
     const { data } = await authApi.login(emailOrUsername, password);
-
-    console.log("=data===================================");
-    console.log(data.con);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log(data);
+    // console.log("====================================");
     if (data.con) {
       setErr(false);
       const user = jwtDecode(data.result.token);
+      setText(`success with ${user.email}`);
       authContext.setUser(user.email);
       authStorage.setToken(data.result.token);
     } else {
+      setText("fail");
       setErr(true);
     }
 
+    // console.log("====================================");
+    // console.log("ddd");
+    // console.log("====================================");
+
     // Handle login logic here with the form values
-    // console.log(data);
+    // console.log("helo");
+    // setTest(data.msg);
   };
 
   return (
@@ -137,6 +145,8 @@ export const Login = () => {
             family={"Montserrat_600SemiBold"}
             text={"Fuel management system"}
           />
+          {/* <AppText family={"Montserrat_600SemiBold"} text={text} /> */}
+          {/* <AppText family={"Montserrat_600SemiBold"} text={test} /> */}
           {err && <ErrorMsg err="invalid email or password" />}
           <Formik
             initialValues={{ emailOrUsername: "", password: "" }}

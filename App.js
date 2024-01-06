@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { Login } from "./app/screens/Login";
 import { Stack } from "expo-router";
@@ -15,6 +14,7 @@ import AuthContext from "./app/auth/context";
 import VoucherReload from "./app/auth/VoucherReload";
 import authStorage from "./app/auth/storage";
 import { jwtDecode } from "jwt-decode";
+import { StatusBar } from "expo-status-bar";
 
 function HomeTabs() {
   const Tap = createBottomTabNavigator();
@@ -100,6 +100,7 @@ export default function App() {
           {/* <Welcome /> */}
           {user ? <Authnavigator /> : <Welcome />}
         </NavigationContainer>
+        {/* <StatusBar style="light" /> */}
       </AuthContext.Provider>
     </VoucherReload.Provider>
   );

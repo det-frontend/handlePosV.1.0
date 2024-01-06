@@ -6,6 +6,7 @@ import cardApi from "../../api/getCard";
 import WholeRequestApi from "../../api/wholereq";
 import Paho from "paho-mqtt";
 import { DataContext } from "../../Navigation/AppNavigator";
+import presetApi from "../../api/preset";
 import tw from "twrnc";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
@@ -21,6 +22,7 @@ import Card from "../../components/Card";
 import PermitApi from "../../api/permit";
 import LiveCount from "../../components/LiveCount";
 import VoucherReload from "../../auth/VoucherReload";
+import Preset from "../../components/Preset";
 
 export const Main = () => {
   const [final, setFinal] = useState(false);
@@ -42,6 +44,7 @@ export const Main = () => {
   const [noz, setNoz] = useState();
   const [singleData, setSingleData] = useState();
   const [permitState, setPermitState] = useState(false);
+  const [readyState, setReadyState] = useState("");
   const [isPermit, setIsPermit] = useState();
   const [permit, setPermit] = useState();
   const [readyDespenserHistory, setReadyDespenserHistory] = useState([]);
@@ -56,18 +59,23 @@ export const Main = () => {
   const [realTimeEdit, setRealTimeEdit] = useState({
     objId: "",
     cashType: "",
-    carNo: "",  
+    carNo: "",
     purpose_of_use: "",
     couObjId: "",
     couName: "",
     couId: "",
   });
+  const handleReadyPermit = () => {};
   const { setRe } = useContext(VoucherReload);
+  console.log("=readyState===================================");
+  console.log(readyState);
+  console.log("====================================");
   // console.log("====================================");
   // console.log(setRe);
   // console.log("====================================");
 
   const [payloadHistory, setPayloadHistory] = useState([]);
+  const [readyStateObj, setReadyStateObj] = useState("");
   const payloadHistoryRef = useRef(payloadHistory);
   const [noMorePermit, setNoMorePermit] = useState(null);
   const [permitd, setPermitd] = useState(false);
@@ -330,6 +338,9 @@ export const Main = () => {
         premitFormInfo.couObjId,
         singleData?.daily_price
       );
+      console.log("====================================");
+      console.log(permitObject?.data?.result);
+      console.log("====================================");
 
       setLoading(false);
 
@@ -451,6 +462,9 @@ export const Main = () => {
   };
 
   const handleReadyState = async () => {
+    console.log("====================================");
+    console.log("work");
+    console.log("====================================");
     if (!presetButtonDisable) {
       setPresetButtonDisable(true);
     }
@@ -650,10 +664,11 @@ export const Main = () => {
     }, 3000);
   };
 
-  const handleReadyClick = () => {
-    setReadyState(true);
-    setModalVisible(true);
-  };
+  // const handleReadyClick = () => {
+  //   setSingleData(obj);
+  //   setReadyState(true);
+  //   setModalVisible(true);
+  // };
   const handlePrint = () => {
     setLoading(true);
 
@@ -725,6 +740,8 @@ export const Main = () => {
         >
           {dispenserCards.map((e, index) => (
             <Card
+              setReadyState={setReadyState}
+              // handleReadyClick={handleReadyClick}
               setModalVisible={setModalVisible}
               allDone={allDone}
               setAllDone={setAllDone}
@@ -748,12 +765,27 @@ export const Main = () => {
           ))}
           {/* {permitHandler(e.nozzle_no) ? ( */}
           {modalVisible &&
-            (isPermit ? (
+            (readyState ? (
+              <Preset
+                loading={loading}
+                setReadyState={setReadyState}
+                obj={singleData}
+                setPremitFormInfo={setPremitFormInfo}
+                setReadyStateObj={setReadyStateObj}
+                setModalVisible={setModalVisible}
+                selectedItem={readyState}
+                onSelectedItem={(item) => setReadyState(item.label)}
+                handleReadyState={handleReadyState}
+                chooseOne={chooseOne}
+                handleReadyPermit={handleReadyPermit}
+                presetButtonDisable={presetButtonDisable}
+              />
+            ) : isPermit ? (
               <LiveCount
                 obj={singleData}
                 fetchObj={fetchObj}
                 setSaleLiter={setSaleLiter}
-                setModalVisiblesetRe
+                // setModalVisiblesetRe
                 setSalePrice={setSalePrice}
                 printFormInfo={printFormInfo}
                 setPrintFormInfo={setPrintFormInfo}
